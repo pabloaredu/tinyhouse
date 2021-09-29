@@ -1,14 +1,14 @@
-import React from "react";
-import { render } from "react-dom";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
-import { Home, Host, Listing, Listings, NotFound, User } from "./sections";
-import * as serviceWorker from "./serviceWorker";
-import "./styles/index.css";
+import React from 'react';
+import {render} from 'react-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import ApolloClient from 'apollo-boost';
+import {ApolloProvider} from 'react-apollo';
+import {Home, Host, Listing, Listings, NotFound, User} from './sections';
+import * as serviceWorker from './serviceWorker';
+import './styles/index.css';
 
 const client = new ApolloClient({
-  uri: "http://localhost:9000/api",
+  uri: 'http://localhost:9000/api',
 });
 
 const App = () => {
@@ -29,10 +29,10 @@ const App = () => {
 render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App  />
+      <App />
     </ApolloProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

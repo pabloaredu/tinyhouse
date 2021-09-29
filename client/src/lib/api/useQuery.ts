@@ -1,5 +1,5 @@
-import { useReducer, useEffect, useCallback } from "react";
-import { server } from "./server";
+import {useReducer, useEffect, useCallback} from 'react';
+import {server} from './server';
 
 interface State<TData> {
   data: TData | null;
@@ -12,21 +12,21 @@ interface QueryResult<TData> extends State<TData> {
 }
 
 type Action<TData> =
-  | { type: "FETCH" }
-  | { type: "FETCH_SUCCESS"; payload: TData }
-  | { type: "FETCH_ERROR" };
+  | {type: 'FETCH'}
+  | {type: 'FETCH_SUCCESS'; payload: TData}
+  | {type: 'FETCH_ERROR'};
 
 const reducer = <TData>() => (
   state: State<TData>,
-  action: Action<TData>
+  action: Action<TData>,
 ): State<TData> => {
   switch (action.type) {
-    case "FETCH":
-      return { ...state, loading: true };
-    case "FETCH_SUCCESS":
-      return { ...state, data: action.payload, loading: false, error: false };
-    case "FETCH_ERROR":
-      return { ...state, loading: false, error: true };
+    case 'FETCH':
+      return {...state, loading: true};
+    case 'FETCH_SUCCESS':
+      return {...state, data: action.payload, loading: false, error: false};
+    case 'FETCH_ERROR':
+      return {...state, loading: false, error: true};
     default:
       throw new Error();
   }
@@ -43,9 +43,9 @@ export const useQuery = <TData = any>(query: string): QueryResult<TData> => {
   const fetch = useCallback(() => {
     const fetchApi = async () => {
       try {
-        dispatch({ type: "FETCH" });
+        dispatch({type: 'FETCH'});
 
-        const { data, errors } = await server.fetch<TData>({
+        const {data, errors} = await server.fetch<TData>({
           query,
         });
 
@@ -53,9 +53,9 @@ export const useQuery = <TData = any>(query: string): QueryResult<TData> => {
           throw new Error();
         }
 
-        dispatch({ type: "FETCH_SUCCESS", payload: data });
+        dispatch({type: 'FETCH_SUCCESS', payload: data});
       } catch {
-        dispatch({ type: "FETCH_ERROR" });
+        dispatch({type: 'FETCH_ERROR'});
       }
     };
 
@@ -66,7 +66,7 @@ export const useQuery = <TData = any>(query: string): QueryResult<TData> => {
     fetch();
   }, [fetch]);
 
-  return { ...state, refetch: fetch };
+  return {...state, refetch: fetch};
 };
 
 /// EXAMPLE WITHOUT USING USEREDUCER
